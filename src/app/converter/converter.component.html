@@ -1,0 +1,59 @@
+<div class="converter">
+    <div class="form-group">
+      <label for="fromAmount">From</label>
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="fromAmount"
+        (input)="onFromAmountChange()"
+      />
+      <select
+        class="form-control"
+        [(ngModel)]="fromCurrency"
+        (change)="onCurrencyChange()"
+      >
+        <option *ngFor="let currency of currencies" [value]="currency">
+          {{ currency }}
+          <img
+            [src]="'https://flagcdn.com/w20/' + getCountryCode(currency) + '.png'"
+            alt="{{ currency }} flag"
+            width="20"
+            height="13"
+          />
+        </option>
+      </select>
+    </div>
+  
+    <img
+      src="https://cdn-icons-png.flaticon.com/512/54/54329.png"
+      alt="Reverse"
+      (click)="onReverseButtonClick()"
+      class="reverse-button"
+      [class.rotate]="isRotating"
+    />
+  
+    <div class="form-group">
+      <label for="toAmount">To</label>
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="toAmount"
+        (input)="onToAmountChange()"
+      />
+      <select
+        class="form-control"
+        [(ngModel)]="toCurrency"
+        (change)="onCurrencyChange()"
+      >
+        <option *ngFor="let currency of currencies" [value]="currency">
+          <img
+            [src]="'https://flagcdn.com/w20/' + getCountryCode(currency) + '.png'"
+            alt="{{ currency }} flag"
+            width="32"
+          />
+          {{ currency }}
+        </option>
+      </select>
+    </div>
+  </div>
+  
