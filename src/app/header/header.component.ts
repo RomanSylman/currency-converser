@@ -1,5 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { CurrencyService } from '../utils/currency.service';
+
+interface ExchangeRates {
+  [key: string]: number;
+}
+
+interface CurrencyData {
+  conversion_rates: ExchangeRates;
+  time_last_update_utc: string;
+}
 
 @Component({
   selector: 'app-header',
@@ -7,34 +16,27 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  exchangeRates: any = {
-    USD: 0,
-    EUR: 0,
-  };
+  exchangeRates: { USD: number; EUR: number } = { USD: 0, EUR: 0 };
   lastUpdated: string = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private currencyService: CurrencyService) {}
 
   ngOnInit(): void {
     this.getExchangeRates();
   }
 
   getExchangeRates(): void {
-    this.http
-      .get(
-        'https://v6.exchangerate-api.com/v6/06df6e021e939ba411baf94b/latest/USD'
-      )
-      .subscribe((data: any) => {
-        const usdToUah = data.conversion_rates.UAH;
-        const eurToUah = data.conversion_rates.EUR;
+    this.currencyService.getRates().subscribe((data: CurrencyData) => {
+      const usdToUah = data.conversion_rates['UAH'];
+      const eurToUah = data.conversion_rates['EUR'];
 
-        this.exchangeRates = {
-          USD: (1 / usdToUah).toFixed(4),
-          EUR: (eurToUah / usdToUah).toFixed(4),
-        };
+      this.exchangeRates = {
+        USD: +(1 / usdToUah).toFixed(4),
+        EUR: +(eurToUah / usdToUah).toFixed(4),
+      };
 
-        const date = new Date(data.time_last_update_utc);
-        this.lastUpdated = date.toLocaleString();
-      });
+      const date = new Date(data.time_last_update_utc);
+      this.lastUpdated = date.toLocaleString();
+    });
   }
 }

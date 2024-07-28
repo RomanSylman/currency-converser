@@ -1,0 +1,17 @@
+<div class="custom-dropdown">
+    <button class="custom-dropdown-toggle" (click)="toggleDropdown()">
+      <img [src]="getCountryFlag(selectedCurrency)" alt="{{ selectedCurrency }} flag" width="20" height="20" />
+      {{ selectedCurrency }}
+      <span class="arrow" [class.open]="dropdownOpen"></span>
+    </button>
+    <div class="custom-dropdown-menu" [class.show]="dropdownOpen">
+      <div class="close-button-container">
+        <button class="close-button" (click)="toggleDropdown()">Close</button>
+      </div>
+      <button class="custom-dropdown-item" *ngFor="let currency of currencies" (click)="selectCurrency(currency)">
+        <img [src]="getCountryFlag(currency)" alt="{{ currency }} flag" width="20" height="20" />
+        {{ currency }}
+      </button>
+    </div>
+  </div>
+  

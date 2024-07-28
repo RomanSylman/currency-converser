@@ -1,0 +1,16 @@
+<div class="form-group">
+    <label for="amount">Amount</label>
+    <input
+      type="number"
+      class="form-control"
+      [value]="amount"
+      (input)="onAmountChange($event)"
+    />
+    <label for="currency">Currency</label>
+    <app-custom-dropdown
+      [currencies]="currencies"
+      [selectedCurrency]="currency"
+      (currencyChange)="onCurrencyChange($event)"
+    ></app-custom-dropdown>
+  </div>
+  
