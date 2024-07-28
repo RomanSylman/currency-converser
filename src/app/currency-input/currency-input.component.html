@@ -5,6 +5,7 @@
       class="form-control"
       [value]="amount"
       (input)="onAmountChange($event)"
+      [readonly]="readonly"
     />
     <label for="currency">Currency</label>
     <app-custom-dropdown

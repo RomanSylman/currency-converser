@@ -9,9 +9,9 @@ export class CurrencyInputComponent implements OnInit {
   @Input() amount!: number;
   @Input() currency!: string;
   @Input() currencies!: string[];
+  @Input() readonly: boolean = false;
   @Output() amountChange = new EventEmitter<number>();
   @Output() currencyChange = new EventEmitter<string>();
-
   @Input() disabledCurrencies: string[] = [];
 
   ngOnInit(): void {}
