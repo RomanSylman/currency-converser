@@ -4,11 +4,11 @@ import { getCountryCode } from '../utils/currency-utils';
 @Component({
   selector: 'app-custom-dropdown',
   templateUrl: './custom-dropdown.component.html',
-  styleUrls: ['./custom-dropdown.component.scss']
+  styleUrls: ['./custom-dropdown.component.scss'],
 })
 export class CustomDropdownComponent implements OnInit {
-  @Input() currencies: string[] = [];
-  @Input() selectedCurrency: string = '';
+  @Input() currencies!: string[];
+  @Input() selectedCurrency!: string;
   @Output() currencyChange = new EventEmitter<string>();
 
   dropdownOpen: boolean = false;

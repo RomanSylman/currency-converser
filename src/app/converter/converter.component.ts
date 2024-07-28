@@ -1,14 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CurrencyService } from '../utils/currency.service';
 
-interface ExchangeRates {
-  [key: string]: number;
-}
-
-interface CurrencyData {
-  conversion_rates: ExchangeRates;
-}
-
 @Component({
   selector: 'app-converter',
   templateUrl: './converter.component.html',
@@ -20,7 +12,7 @@ export class ConverterComponent implements OnInit {
   fromCurrency: string = 'USD';
   toAmount: number = 0;
   toCurrency: string = 'UAH';
-  rates: ExchangeRates = {};
+  rates: { [key: string]: number } = {};
   isRotating: boolean = false;
 
   constructor(private currencyService: CurrencyService) {}
@@ -30,7 +22,7 @@ export class ConverterComponent implements OnInit {
   }
 
   loadRates(): void {
-    this.currencyService.getRates().subscribe((data: CurrencyData) => {
+    this.currencyService.getRates().subscribe((data: { conversion_rates: { [key: string]: number } }) => {
       this.rates = data.conversion_rates;
       this.currencies = Object.keys(this.rates);
       this.convert();

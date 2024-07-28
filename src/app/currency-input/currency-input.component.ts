@@ -6,9 +6,9 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
   styleUrls: ['./currency-input.component.scss'],
 })
 export class CurrencyInputComponent implements OnInit {
-  @Input() amount: number = 0;
-  @Input() currency: string = '';
-  @Input() currencies: string[] = [];
+  @Input() amount!: number;
+  @Input() currency!: string;
+  @Input() currencies!: string[];
   @Output() amountChange = new EventEmitter<number>();
   @Output() currencyChange = new EventEmitter<string>();
 
@@ -17,8 +17,8 @@ export class CurrencyInputComponent implements OnInit {
   ngOnInit(): void {}
 
   onAmountChange(event: Event): void {
-    const value = parseFloat((event.target as HTMLInputElement).value);
-    this.amountChange.emit(value);
+    const value = (event.target as HTMLInputElement).value;
+    this.amountChange.emit(parseFloat(value));
   }
 
   onCurrencyChange(currency: string): void {
